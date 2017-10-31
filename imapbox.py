@@ -82,8 +82,10 @@ def main():
 
         print('{}/{} (on {})'.format(account['name'], account['remote_folder'], account['host']))
 
+        user_local_folder = os.path.join(options['local_folder'], account['name'])
+
         mailbox = MailboxClient(account['host'], account['port'], account['username'], account['password'], account['remote_folder'])
-        stats = mailbox.copy_emails(options['days'], options['local_folder'], options['wkhtmltopdf'])
+        stats = mailbox.copy_emails(options['days'], user_local_folder, options['wkhtmltopdf'])
         mailbox.cleanup()
 
         print('{} emails created, {} emails already exists'.format(stats[0], stats[1]))
